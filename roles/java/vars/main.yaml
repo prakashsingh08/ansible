@@ -1,0 +1,5 @@
+---
+java_make_dir: "/opt/soft/java"
+java_install_dir: "/opt/soft/java"
+java_archive: "jdk-8u65-linux-x64.tar.gz"
+unarchived_java_path: "{{java_install_dir}}/jdk1.8.0_65"

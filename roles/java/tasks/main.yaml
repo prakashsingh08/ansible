@@ -1,0 +1,26 @@
+---
+
+- name: clearing directory
+  file: path={{java_make_dir}} state=absent
+
+
+- name: creating dir
+  file: path={{java_install_dir}} state=directory
+
+- name: copying java
+  copy: src={{java_archive}} dest={{java_install_dir}}
+
+#- name: unarchive java
+#  command: "tar -xvf {{java_install_dir}}/{{java_archive}}"
+
+- name: unarchive java
+  unarchive: src={{java_install_dir}}/{{java_archive}} dest={{java_install_dir}}
+
+- name: fixing ownership
+  file: state=directory path={{java_install_dir}} owner=vagrant group=vagrant recurse=yes
+
+- name: removing archive file
+  file: path={{java_install_dir}}/{{java_archive}} state=absent
+
+- name: making java available for system
+  command: 'alternatives --install "/usr/bin/java" "java" "{{unarchived_java_path}}/bin/java" 2000'
